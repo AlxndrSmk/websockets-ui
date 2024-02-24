@@ -1,6 +1,10 @@
 import { WebSocketServer } from 'ws';
-import handlePlayerAuth from '../handlers/handlePlayerAuth';
 import { Socket } from '../types/types';
+import regPlayer from '../handlers/regPlayer';
+import createRoom from '../handlers/createRoom';
+import updateRoom from '../handlers/updateRoom';
+import addUserToRoom from '../handlers/addUserToRoom';
+import createGame from '../handlers/createGame';
 
 const port: number = 3000;
 
@@ -15,7 +19,19 @@ const start = () => {
       console.log('Received:', data);
 
       if (data.type === 'reg') {
-        handlePlayerAuth(socket, data);
+        regPlayer(socket, data);
+        updateRoom();
+      }
+
+      if (data.type === 'create_room') {
+        createRoom(socket);
+        updateRoom();
+      }
+
+      if (data.type === 'add_user_to_room') {
+        addUserToRoom(socket, data);
+        createGame();
+        updateRoom();
       }
     });
 

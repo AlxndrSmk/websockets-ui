@@ -2,7 +2,7 @@ import { connections, users } from '../server/database';
 import { Socket, AuthData } from '../types/types';
 import sendResponse from '../utils/sendResponse';
 
-const handlePlayerAuth = (socket: Socket, data: AuthData) => {
+const regPlayer = (socket: Socket, data: AuthData) => {
   const { name, password } = JSON.parse(data.data);
 
   if (name && password) {
@@ -10,7 +10,7 @@ const handlePlayerAuth = (socket: Socket, data: AuthData) => {
 
     if (existingUser) {
       if (existingUser.password === password) {
-        socket.id = existingUser.id;
+        socket.id = existingUser.index;
         connections.push(socket);
 
         const responseData = {
@@ -38,7 +38,7 @@ const handlePlayerAuth = (socket: Socket, data: AuthData) => {
       const newUser = {
         name,
         password,
-        id: socket.id,
+        index: socket.id,
         wins: 0,
       };
 
@@ -59,4 +59,4 @@ const handlePlayerAuth = (socket: Socket, data: AuthData) => {
   }
 };
 
-export default handlePlayerAuth;
+export default regPlayer;
