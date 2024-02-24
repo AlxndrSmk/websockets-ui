@@ -30,7 +30,7 @@ const start = () => {
 
       if (data.type === 'add_user_to_room') {
         addUserToRoom(socket, data);
-        createGame();
+        createGame(data);
         updateRoom();
       }
     });

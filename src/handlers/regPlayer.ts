@@ -10,12 +10,12 @@ const regPlayer = (socket: Socket, data: AuthData) => {
 
     if (existingUser) {
       if (existingUser.password === password) {
-        socket.id = existingUser.index;
+        socket.index = existingUser.index;
         connections.push(socket);
 
         const responseData = {
           name: existingUser.name,
-          index: socket.id,
+          index: socket.index,
           error: false,
           errorText: '',
         };
@@ -33,12 +33,12 @@ const regPlayer = (socket: Socket, data: AuthData) => {
     } else {
       const id =
         Date.now().toString(36) + Math.random().toString(36).substring(2);
-      socket.id = id;
+      socket.index = id;
 
       const newUser = {
         name,
         password,
-        index: socket.id,
+        index: socket.index,
         wins: 0,
       };
 
@@ -47,7 +47,7 @@ const regPlayer = (socket: Socket, data: AuthData) => {
 
       const responseData = {
         name,
-        index: socket.id,
+        index: socket.index,
         error: false,
         errorText: '',
       };

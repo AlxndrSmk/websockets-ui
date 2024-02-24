@@ -6,6 +6,13 @@ export interface User {
   password?: string;
 }
 
+export interface Player {
+  name: string;
+  password: string;
+  index: number | string;
+  wins: number;
+}
+
 export interface RoomUser {
   password?: string;
   index: number | string;
@@ -24,12 +31,12 @@ export interface RoomData {
 }
 
 export interface Socket extends WebSocket {
-  id: number | string;
+  index: string | number;
 }
 
 export interface Winner {
   name: string;
-  winsCount: number;
+  wins: number;
 }
 
 export interface AuthData {
@@ -56,7 +63,5 @@ export interface Room {
 }
 
 export interface AddUserToRoom {
-  data: {
-    indexRoom: number | string;
-  };
+  data: string;
 }

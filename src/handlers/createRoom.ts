@@ -2,10 +2,10 @@ import { roomUsers, users } from '../server/database';
 import { Socket } from '../types/types';
 
 const createRoom = (socket: Socket) => {
-  const existingRoom = roomUsers.find((room) => room.roomId === socket.id);
+  const existingRoom = roomUsers.find((room) => room.roomId === socket.index);
 
   if (!existingRoom) {
-    const user = users.find((user) => user.index === socket.id);
+    const user = users.find((user) => user.index === socket.index);
 
     if (user) {
       const data = {
