@@ -5,6 +5,7 @@ import createRoom from '../handlers/createRoom';
 import updateRoom from '../handlers/updateRoom';
 import addUserToRoom from '../handlers/addUserToRoom';
 import createGame from '../handlers/createGame';
+import startGame from '../handlers/startGame';
 
 const port: number = 3000;
 
@@ -30,8 +31,13 @@ const start = () => {
 
       if (data.type === 'add_user_to_room') {
         addUserToRoom(socket, data);
+        updateRoom();
         createGame(data);
         updateRoom();
+      }
+
+      if (data.type === 'add_ships') {
+        startGame(socket, data);
       }
     });
 
@@ -39,6 +45,7 @@ const start = () => {
       console.log('Player disconnected');
     });
   });
+  console.log(`Start websocket server on the ${port} port!`);
 };
 
 start();

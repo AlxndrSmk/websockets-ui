@@ -65,3 +65,44 @@ export interface Room {
 export interface AddUserToRoom {
   data: string;
 }
+
+export interface StartGameResponse {
+  type: string;
+  data: {
+    ships: Ship[];
+    currentPlayerIndex: number;
+  };
+  id: number;
+}
+
+interface Ship {
+  position: {
+    x: number;
+    y: number;
+  };
+  direction: boolean;
+  length: number;
+  type: 'small' | 'medium' | 'large' | 'huge';
+}
+
+export interface AddShipsData {
+  type: string;
+  data: {
+    gameId: number | string;
+    ships: [
+      {
+        position: {
+          x: number;
+          y: number;
+        };
+        direction: boolean;
+        length: number;
+        type: 'small' | 'medium' | 'large' | 'huge';
+      }
+    ];
+    indexPlayer:
+      | number
+      | string /* id of the player in the current game session */;
+  };
+  id: number;
+}
