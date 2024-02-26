@@ -11,11 +11,16 @@
 
 `npm run start:dev`
 
+`npm run start-server:dev`
+
+
 * App served @ `http://localhost:8181` with nodemon
 
 **Production**
 
 `npm run start`
+
+`npm run start-server`
 
 * App served @ `http://localhost:8181` without nodemon
 
