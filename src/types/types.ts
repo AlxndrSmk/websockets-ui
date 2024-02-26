@@ -63,14 +63,20 @@ export interface Room {
 }
 
 export interface AddUserToRoom {
+  type: string;
   data: string;
+  id: number;
+}
+
+export interface AddUserToRoomData {
+  indexRoom: number | string;
 }
 
 export interface StartGameResponse {
   type: string;
   data: {
     ships: Ship[];
-    currentPlayerIndex: number;
+    currentPlayerIndex: number | string;
   };
   id: number;
 }
@@ -87,22 +93,62 @@ interface Ship {
 
 export interface AddShipsData {
   type: string;
+  data: string;
+  id: number;
+}
+
+export interface ParsedAddShipsData {
+  gameId: number | string;
+  ships: [
+    {
+      position: {
+        x: number;
+        y: number;
+      };
+      direction: boolean;
+      length: number;
+      type: 'small' | 'medium' | 'large' | 'huge';
+    }
+  ];
+  indexPlayer: number | string;
+}
+
+export interface AttackData {
+  type: string;
+  data: string;
+  id: number;
+}
+
+export interface StartGameData {
+  type: string;
+  data: string;
+  id: number;
+}
+
+export interface ParsedStartGameData {
+  ships: [
+    {
+      position: {
+        x: number;
+        y: number;
+      };
+      direction: boolean;
+      length: number;
+      type: 'small' | 'medium' | 'large' | 'huge';
+    }
+  ];
+  currentPlayerIndex: number | string;
+}
+
+export interface AttackDataResponse {
+  type: string;
   data: {
-    gameId: number | string;
-    ships: [
-      {
-        position: {
-          x: number;
-          y: number;
-        };
-        direction: boolean;
-        length: number;
-        type: 'small' | 'medium' | 'large' | 'huge';
-      }
-    ];
-    indexPlayer:
-      | number
-      | string /* id of the player in the current game session */;
+    position: {
+      x: number;
+      y: number;
+    };
+    currentPlayer: number | string;
+    status: 'miss' | 'killed' | 'shot';
   };
   id: number;
 }

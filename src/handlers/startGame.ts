@@ -1,16 +1,26 @@
-import { AddShipsData, Socket, StartGameResponse } from 'types/types';
+import {
+  ParsedStartGameData,
+  Socket,
+  StartGameData,
+  StartGameResponse,
+} from 'types/types';
 
-const startGame = (socket: Socket, data: AddShipsData) => {
-  const response: StartGameResponse = {
-    type: 'start_game',
-    data: {
-      ships: [],
-      currentPlayerIndex: 0,
-    },
-    id: 0,
-  };
-  console.log('data', data);
-  socket.send(JSON.stringify(response));
+const startGame = (socket: Socket, data: StartGameData) => {
+  try {
+    const parsedStartGameData: ParsedStartGameData = JSON.parse(data.data);
+
+    const response: StartGameResponse = {
+      type: 'start_game',
+      data: {
+        ships: parsedStartGameData.ships,
+        currentPlayerIndex: parsedStartGameData.currentPlayerIndex,
+      },
+      id: 0,
+    };
+    socket.send(JSON.stringify(response));
+  } catch {
+    console.log('Something went wromg.˝');
+  }
 };
 
 export default startGame;
